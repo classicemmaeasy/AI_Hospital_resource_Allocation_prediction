@@ -1,0 +1,6 @@
+# Force LF line endings for all text files
+* text=auto eol=lf
+
+# Explicitly mark binary files
+*.joblib binary
+*.ipynb text eol=lf
