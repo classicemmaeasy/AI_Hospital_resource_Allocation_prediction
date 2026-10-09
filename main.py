@@ -22,17 +22,25 @@ import warnings
 from pathlib import Path
 
 import streamlit as st
-
+import sys
+import traceback
 # joblib is required to deserialize the trained model files. It is installed
 # by requirements.txt in Streamlit Cloud.
 try:
     import joblib
 except ImportError as exc:
-    st.error(
-        "The required package 'joblib' is missing. Add 'joblib' to "
-        "requirements.txt and reboot the Streamlit app."
+    st.error("Failed to import joblib.")
+    st.code(
+        f"Error type: {type(exc).__name__}\n"
+        f"Error message: {exc}\n\n"
+        f"Python executable: {sys.executable}\n"
+        f"Python version: {sys.version}\n"
+        f"Working directory: {Path.cwd()}\n"
+        f"App directory: {Path(__file__).resolve().parent}\n\n"
+        f"{traceback.format_exc()}"
     )
     st.stop()
+st.success(f"joblib imported successfully: {joblib.__version__}")
 
 import numpy as np
 import pandas as pd
