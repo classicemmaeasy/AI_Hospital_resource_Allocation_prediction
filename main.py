@@ -18,14 +18,24 @@
 # mixed with another model.
 # ============================================================
 
-import os
 import warnings
 from pathlib import Path
 
-import joblib
+import streamlit as st
+
+# joblib is required to deserialize the trained model files. It is installed
+# by requirements.txt in Streamlit Cloud.
+try:
+    import joblib
+except ImportError as exc:
+    st.error(
+        "The required package 'joblib' is missing. Add 'joblib' to "
+        "requirements.txt and reboot the Streamlit app."
+    )
+    st.stop()
+
 import numpy as np
 import pandas as pd
-import streamlit as st
 
 
 # ============================================================
